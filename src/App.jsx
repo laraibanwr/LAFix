@@ -52,10 +52,10 @@ function App() {
       <main className="flex-1 flex flex-col items-center justify-center px-4 py-16">
         <div className="text-center mb-10">
           <h1 className="font-bebas text-5xl md:text-7xl tracking-wide text-white leading-none mb-3">
-            Watch any Movie or Web-Series for free.
+            Watch any Movie or Web-Series for free
           </h1>
           <p className="font-dm text-sm md:text-base text-gray-500">
-            Search by title and start watching instantly.
+            Search by title and start watching instantly
           </p>
         </div>
         
