@@ -61,29 +61,31 @@ function App() {
         
         <SearchBox onSearch={handleSearch} />
 
-        <div className="mt-8 flex flex-col md:flex-row items-center justify-center gap-6 bg-cardbg border border-borderdark rounded-xl p-5 max-w-[600px] w-full mx-auto shadow-lg hover:border-[#444] transition-colors">
+        {(loading || error || results.length > 0) && (
+          <div className="w-full flex flex-col items-center mt-8 gap-3">
+            {loading && <Spinner />}
+            {!loading && error === 'no_results' && (
+              <p className="text-gray-500 font-dm text-sm mt-6">No movies found. Try a different title.</p>
+            )}
+            {!loading && error === 'network_error' && (
+              <p className="text-lafred font-dm text-sm mt-6">Something went wrong. Please try again.</p>
+            )}
+            {!loading && results.map((movie, i) => (
+              <ResultCard key={movie.imdbID} movie={movie} index={i} />
+            ))}
+          </div>
+        )}
+
+        <div className="mt-12 flex flex-col md:flex-row items-center justify-center gap-8 bg-cardbg border border-borderdark rounded-2xl p-6 md:p-10 max-w-[800px] w-full mx-auto shadow-xl hover:border-[#444] transition-colors">
           <div className="flex-1 text-center md:text-left">
-            <h2 className="font-bebas text-2xl text-white tracking-widest mb-1">Buy Me a Coffee ☕</h2>
-            <p className="font-dm text-gray-400 text-sm leading-relaxed">
+            <h2 className="font-bebas text-4xl md:text-5xl text-white tracking-widest mb-3">Buy Me a Coffee ☕</h2>
+            <p className="font-dm text-gray-400 text-base md:text-lg leading-relaxed">
               If you love using LAFlix to watch your favorite movies for free, consider supporting the project by scanning the QR code!
             </p>
           </div>
-          <div className="bg-white p-1.5 rounded-lg flex-shrink-0">
-            <img src={upiQr} alt="UPI QR Code" className="w-24 h-24 object-contain rounded-md" />
+          <div className="bg-white p-3 rounded-xl flex-shrink-0">
+            <img src={upiQr} alt="UPI QR Code" className="w-40 h-40 md:w-56 md:h-56 object-contain rounded-lg" />
           </div>
-        </div>
-
-        <div className="w-full flex flex-col items-center mt-8 gap-3">
-          {loading && <Spinner />}
-          {!loading && error === 'no_results' && (
-            <p className="text-gray-500 font-dm text-sm mt-6">No movies found. Try a different title.</p>
-          )}
-          {!loading && error === 'network_error' && (
-            <p className="text-lafred font-dm text-sm mt-6">Something went wrong. Please try again.</p>
-          )}
-          {!loading && results.map((movie, i) => (
-            <ResultCard key={movie.imdbID} movie={movie} index={i} />
-          ))}
         </div>
       </main>
       <Footer />
